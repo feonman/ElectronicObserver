@@ -33,9 +33,9 @@ namespace ElectronicObserver.Window {
 				ShipName.Anchor = AnchorStyles.Left;
 				ShipName.ForeColor = parent.ForeColor;
 				ShipName.TextAlign = ContentAlignment.MiddleLeft;
-				ShipName.Padding = new Padding( 0, 1, 0, 1 );
-				ShipName.Margin = new Padding( 2, 0, 2, 0 );
-				ShipName.MaximumSize = new Size( 60, 20 );
+//				ShipName.Padding = new Padding( 0, 1, 0, 1 );
+				ShipName.Margin = new Padding( 2, 1, 2, 1 );
+//				ShipName.MaximumSize = new Size( 60, 20 );
 				ShipName.AutoEllipsis = true;
 				ShipName.AutoSize = true;
 				ShipName.Visible = true;
@@ -46,9 +46,9 @@ namespace ElectronicObserver.Window {
 				CompletionTime.ForeColor = parent.ForeColor;
 				CompletionTime.Tag = null;
 				CompletionTime.TextAlign = ContentAlignment.MiddleLeft;
-				CompletionTime.Padding = new Padding( 0, 1, 0, 1 );
-				CompletionTime.Margin = new Padding( 2, 0, 2, 0 );
-				CompletionTime.MinimumSize = new Size( 60, 10 );
+//				CompletionTime.Padding = new Padding( 0, 1, 0, 1 );
+				CompletionTime.Margin = new Padding( 2, 1, 2, 1 );
+//				CompletionTime.MinimumSize = new Size( 60, 10 );
 				CompletionTime.AutoSize = true;
 				CompletionTime.Visible = true;
 
@@ -231,7 +231,8 @@ namespace ElectronicObserver.Window {
 			TableArsenal.SuspendLayout();
 			for ( int i = 0; i < ControlArsenal.Length; i++ )
 				ControlArsenal[i].Update( i + 1 );
-			TableArsenal.ResumeLayout();
+            SetTableSize();
+            TableArsenal.ResumeLayout();
 
 		}
 
@@ -268,14 +269,47 @@ namespace ElectronicObserver.Window {
 			e.Graphics.DrawLine( Pens.Silver, e.CellBounds.X, e.CellBounds.Bottom - 1, e.CellBounds.Right - 1, e.CellBounds.Bottom - 1 );
 		}
 
+        private void FormArsenal_SizeChanged(object sender, EventArgs e)
+        {
+            SetTableSize();
+        }
+
+        private void SetTableSize()
+        {
+            int nameHeightMax = 0;
+            int nameWidthMax = 0;
+            int timeWidthMax = 0;
+
+            foreach (var ctrl in ControlArsenal)
+            {
+                nameHeightMax = Math.Max(ctrl.ShipName.PreferredHeight + ctrl.ShipName.Margin.Vertical, nameHeightMax);
+                nameWidthMax = Math.Max(ctrl.ShipName.PreferredWidth + ctrl.ShipName.Margin.Horizontal, nameWidthMax);
+                timeWidthMax = Math.Max(ctrl.CompletionTime.PreferredWidth + ctrl.CompletionTime.Margin.Horizontal, timeWidthMax);
+            }
+
+            if (this.ClientSize.Width > nameWidthMax + timeWidthMax)
+            {
+                TableArsenal.ColumnStyles[0].Width = nameWidthMax;
+                TableArsenal.ColumnStyles[1].Width = timeWidthMax;
+            }
+            else
+            {
+                TableArsenal.ColumnStyles[0].Width = Math.Max(this.ClientSize.Width - timeWidthMax, 20);
+                TableArsenal.ColumnStyles[1].Width = timeWidthMax;
+            }
+
+            for (int i = 0; i < TableArsenal.RowStyles.Count; i++)
+            {
+                TableArsenal.RowStyles[i].Height = nameHeightMax;
+            }
+
+        }
 
 
-		protected override string GetPersistString() {
+        protected override string GetPersistString() {
 			return "Arsenal";
 		}
 
-
-
-	}
+    }
 
 }

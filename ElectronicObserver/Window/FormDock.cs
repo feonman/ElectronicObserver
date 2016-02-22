@@ -33,9 +33,9 @@ namespace ElectronicObserver.Window {
 				ShipName.Anchor = AnchorStyles.Left;
 				ShipName.ForeColor = parent.ForeColor;
 				ShipName.TextAlign = ContentAlignment.MiddleLeft;
-				ShipName.Padding = new Padding( 0, 1, 0, 1 );
-				ShipName.Margin = new Padding( 2, 0, 2, 0 );
-				ShipName.MaximumSize = new Size( 60, 20 );
+				// ShipName.Padding = new Padding( 0, 1, 0, 1 );
+				ShipName.Margin = new Padding( 2, 1, 2, 1 );
+				// ShipName.MaximumSize = new Size( 60, 20 );
 				ShipName.AutoEllipsis = true;
 				ShipName.AutoSize = true;
 				ShipName.Visible = true;
@@ -46,9 +46,9 @@ namespace ElectronicObserver.Window {
 				RepairTime.ForeColor = parent.ForeColor;
 				RepairTime.Tag = null;
 				RepairTime.TextAlign = ContentAlignment.MiddleLeft;
-				RepairTime.Padding = new Padding( 0, 1, 0, 1 );
-				RepairTime.Margin = new Padding( 2, 0, 2, 0 );
-				RepairTime.MinimumSize = new Size( 60, 10 );
+				// RepairTime.Padding = new Padding( 0, 1, 0, 1 );
+				RepairTime.Margin = new Padding( 2, 1, 2, 1 );
+				// RepairTime.MinimumSize = new Size( 60, 10 );
 				RepairTime.AutoSize = true;
 				RepairTime.Visible = true;
 
@@ -185,6 +185,7 @@ namespace ElectronicObserver.Window {
 			TableDock.SuspendLayout();
 			for ( int i = 0; i < ControlDock.Length; i++ )
 				ControlDock[i].Update( i + 1 );
+            SetTableSize();
 			TableDock.ResumeLayout();
 
 		}
@@ -214,13 +215,50 @@ namespace ElectronicObserver.Window {
 				foreach ( var c in ControlDock )
 					c.ConfigurationChanged( this );
 			}
-		}
+            SetTableSize();
 
+        }
 
-		protected override string GetPersistString() {
+        private void FormDock_SizeChanged(object sender, EventArgs e)
+        {
+            SetTableSize();
+        }
+
+        private void SetTableSize()
+        {
+            int nameHeightMax = 0;
+            int nameWidthMax = 0;
+            int timeWidthMax = 0;
+
+            foreach(var ctrl in ControlDock)
+            {
+                nameHeightMax = Math.Max(ctrl.ShipName.PreferredHeight + ctrl.ShipName.Margin.Vertical, nameHeightMax);
+                nameWidthMax = Math.Max(ctrl.ShipName.PreferredWidth + ctrl.ShipName.Margin.Horizontal, nameWidthMax);
+                timeWidthMax = Math.Max(ctrl.RepairTime.PreferredWidth + ctrl.RepairTime.Margin.Horizontal, timeWidthMax);
+            }
+
+            if(this.ClientSize.Width > nameWidthMax+timeWidthMax)
+            {
+                TableDock.ColumnStyles[0].Width = nameWidthMax;
+                TableDock.ColumnStyles[1].Width = timeWidthMax;
+            }
+            else
+            {
+                TableDock.ColumnStyles[0].Width = Math.Max(this.ClientSize.Width - timeWidthMax, 20);
+                TableDock.ColumnStyles[1].Width = timeWidthMax;
+            }
+
+            for(int i = 0; i < TableDock.RowStyles.Count; i++)
+            {
+                TableDock.RowStyles[i].Height = nameHeightMax;
+            }
+
+        }
+
+        protected override string GetPersistString() {
 			return "Dock";
 		}
 
-	}
+    }
 
 }
