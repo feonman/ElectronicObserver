@@ -255,10 +255,11 @@ namespace ElectronicObserver.Window {
 				foreach ( var c in ControlArsenal )
 					c.ConfigurationChanged( this );
 			}
-		}
+            SetTableSize();
+        }
 
 
-		private void MenuMain_ShowShipName_CheckedChanged( object sender, EventArgs e ) {
+        private void MenuMain_ShowShipName_CheckedChanged( object sender, EventArgs e ) {
 			Utility.Configuration.Config.FormArsenal.ShowShipName = MenuMain_ShowShipName.Checked;
 
 			UpdateUI();
