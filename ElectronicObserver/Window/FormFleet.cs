@@ -100,7 +100,7 @@ namespace ElectronicObserver.Window {
 
 				int row = 0;
 				#region set RowStyle
-				RowStyle rs = new RowStyle( SizeType.Absolute, 21 );
+				RowStyle rs = new RowStyle( SizeType.AutoSize);
 
 				if ( table.RowStyles.Count > row )
 					table.RowStyles[row] = rs;
@@ -339,7 +339,7 @@ namespace ElectronicObserver.Window {
 				table.ResumeLayout();
 
 				#region set RowStyle
-				RowStyle rs = new RowStyle( SizeType.Absolute, 21 );
+				RowStyle rs = new RowStyle( SizeType.AutoSize );
 
 				if ( table.RowStyles.Count > row )
 					table.RowStyles[row] = rs;
