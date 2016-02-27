@@ -288,6 +288,9 @@
     <Compile Include="Window\Control\ShipStatusResource.Designer.cs">
       <DependentUpon>ShipStatusResource.cs</DependentUpon>
     </Compile>
+    <Compile Include="Window\Control\SplitContainerKai.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Window\Control\StatusBarModule.cs" />
     <Compile Include="Window\Control\WindowCaptureButton.cs">
       <SubType>Component</SubType>
