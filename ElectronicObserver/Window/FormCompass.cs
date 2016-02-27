@@ -44,9 +44,9 @@ namespace ElectronicObserver.Window {
 				ShipName.Anchor = AnchorStyles.Left;
 				ShipName.ForeColor = parent.MainFontColor;
 				ShipName.ImageAlign = ContentAlignment.MiddleCenter;
-				ShipName.Padding = new Padding( 0, 1, 0, 1 );
-				ShipName.Margin = new Padding( 2, 0, 2, 0 );
-				ShipName.MaximumSize = new Size( 60, 20 );
+				// ShipName.Padding = new Padding( 0, 1, 0, 1 );
+				ShipName.Margin = new Padding( 2, 1, 2, 1 );
+				// ShipName.MaximumSize = new Size( 60, 20 );
 				ShipName.AutoEllipsis = true;
 				ShipName.AutoSize = true;
 				ShipName.Cursor = Cursors.Help;
@@ -55,8 +55,8 @@ namespace ElectronicObserver.Window {
 				Equipments = new ShipStatusEquipment();
 				Equipments.SuspendLayout();
 				Equipments.Anchor = AnchorStyles.Left;
-				Equipments.Padding = new Padding( 0, 2, 0, 1 );
-				Equipments.Margin = new Padding( 2, 0, 2, 0 );
+				// Equipments.Padding = new Padding( 0, 2, 0, 1 );
+				Equipments.Margin = new Padding( 2, 2, 2, 1 );
 				Equipments.Size = new Size( 40, 20 );	//checkme: 要る？
 				Equipments.AutoSize = true;
 				Equipments.ResumeLayout();
@@ -80,7 +80,7 @@ namespace ElectronicObserver.Window {
 				table.Controls.Add( Equipments, 1, row );
 
 				#region set RowStyle
-				RowStyle rs = new RowStyle( SizeType.Absolute, 21 );
+				RowStyle rs = new RowStyle( SizeType.AutoSize);
 
 				if ( table.RowStyles.Count > row )
 					table.RowStyles[row] = rs;
@@ -204,9 +204,9 @@ namespace ElectronicObserver.Window {
 				label.Anchor = AnchorStyles.Left;
 				label.ForeColor = Parent.MainFontColor;
 				label.ImageAlign = ContentAlignment.MiddleCenter;
-				label.Padding = new Padding( 0, 1, 0, 1 );
-				label.Margin = new Padding( 4, 0, 4, 0 );
-				label.MaximumSize = new Size( 60, 20 );
+				// label.Padding = new Padding( 0, 1, 0, 1 );
+				label.Margin = new Padding( 4, 1, 4, 1 );
+				// label.MaximumSize = new Size( 60, 20 );
 				label.AutoEllipsis = true;
 				label.AutoSize = true;
 
@@ -678,7 +678,7 @@ namespace ElectronicObserver.Window {
 
 
 				BasePanel.SuspendLayout();
-				PanelEnemyFleet.Visible = false;
+				TableEnemyFleetBase.Visible = false;
 				PanelEnemyCandidate.Visible = false;
 
 				_enemyFleetCandidate = null;
@@ -942,7 +942,7 @@ namespace ElectronicObserver.Window {
 			}
 
 
-			PanelEnemyFleet.Visible = false;
+			TableEnemyFleetBase.Visible = false;
 
 		}
 
@@ -1007,7 +1007,7 @@ namespace ElectronicObserver.Window {
 			TableEnemyMember.ResumeLayout();
 			TableEnemyMember.Visible = true;
 
-			PanelEnemyFleet.Visible = true;
+			TableEnemyFleetBase.Visible = true;
 
 			PanelEnemyCandidate.Visible = false;
 
@@ -1073,7 +1073,7 @@ namespace ElectronicObserver.Window {
 
 		void ConfigurationChanged() {
 
-			Font = PanelEnemyFleet.Font = MainFont = Utility.Configuration.Config.UI.MainFont;
+			Font = TableEnemyFleetBase.Font = MainFont = Utility.Configuration.Config.UI.MainFont;
 			SubFont = Utility.Configuration.Config.UI.SubFont;
 
 			TextMapArea.Font =
