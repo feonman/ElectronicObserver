@@ -47,11 +47,12 @@ namespace ElectronicObserver.Window {
 				HPBars[i].Size = new Size( 80, 20 );
 				HPBars[i].Margin = new Padding( 2, 0, 2, 0 );
 				HPBars[i].Anchor = AnchorStyles.None;
-				HPBars[i].MainFont = MainFont;
-				HPBars[i].SubFont = SubFont;
+				HPBars[i].MainFont = Utility.Configuration.Config.UI.MainFont;
+				HPBars[i].SubFont = Utility.Configuration.Config.UI.SubFont;
 				HPBars[i].UsePrevValue = true;
 				HPBars[i].ShowDifference = true;
 				HPBars[i].MaximumDigit = 9999;
+                HPBars[i].AutoSize = true;
 
 				if ( i < 6 ) {
 					TableBottom.Controls.Add( HPBars[i], 0, i + 1 );
