@@ -1227,11 +1227,190 @@ namespace ElectronicObserver.Window {
 			fWindowCapture.Show( MainDockPanel );
 		}
 
-		#endregion
+        #endregion
+
+        private void StripMenu_Browser_DropDownOpening(object sender, EventArgs e)
+        {
+            var config = fBrowser.Configuration;
+
+            StripMenu_Browser_ApplyStyleSheet.Checked = config.AppliesStyleSheet;
+            StripMenu_Browser_Mute.Checked = config.IsMute;
+            if (config.ZoomFit)
+            {
+                StripMenu_Browser_Zoom_Current.Text = "現在: ぴったり";
+                StripMenu_Browser_Zoom_Fit.Checked = true;
+            }
+            else
+            {
+                StripMenu_Browser_Zoom_Current.Text = string.Format("現在: {0}%", config.ZoomRate);
+                StripMenu_Browser_Zoom_Fit.Checked = false;
+            }
+
+            StripMenu_Browser_Mute.Checked = config.IsMute;
+
+            StripMenu_Browser_ToolbarAlignment_Invisible.Checked = false;
+            StripMenu_Browser_ToolbarAlignment_Top.Checked = false;
+            StripMenu_Browser_ToolbarAlignment_Bottom.Checked = false;
+            StripMenu_Browser_ToolbarAlignment_Left.Checked = false;
+            StripMenu_Browser_ToolbarAlignment_Right.Checked = false;
+
+            if (config.IsToolMenuVisible)
+            {
+                switch ((DockStyle)config.ToolMenuDockStyle)
+                {
+                    case DockStyle.Top:
+                        StripMenu_Browser_ToolbarAlignment_Top.Checked = true;
+                        break;
+                    case DockStyle.Bottom:
+                        StripMenu_Browser_ToolbarAlignment_Bottom.Checked = true;
+                        break;
+                    case DockStyle.Left:
+                        StripMenu_Browser_ToolbarAlignment_Left.Checked = true;
+                        break;
+                    case DockStyle.Right:
+                        StripMenu_Browser_ToolbarAlignment_Right.Checked = true;
+                        break;
+                }
+            }
+            else
+            {
+                StripMenu_Browser_ToolbarAlignment_Invisible.Checked = true;
+            }
+        }
+
+        private void StripMenu_Browser_Screenshot_Click(object sender, EventArgs e)
+        {
+            fBrowser.SaveScreenShot();
+        }
+
+        private void StripMenu_Browser_Refresh_Click(object sender, EventArgs e)
+        {
+            if (!Utility.Configuration.Config.FormBrowser.ConfirmAtRefresh ||
+                MessageBox.Show("再読み込みします。\r\nよろしいですか？", "確認",
+                MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2)
+                == System.Windows.Forms.DialogResult.OK)
+            {
+                fBrowser.RefreshBrowser();
+            }
+        }
+
+        private void StripMenu_Browser_NavigateToLogInPage_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("ログインページへ移動します。\r\nよろしいですか？", "確認",
+               MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2)
+               == System.Windows.Forms.DialogResult.OK)
+            {
+                fBrowser.NavigateToLogInPage();
+            }
+        }
+
+        private void StripMenu_Browser_Navigate_Click(object sender, EventArgs e)
+        {
+            fBrowser.RequestNavigation(string.Empty);
+        }
 
 
+        private void StripMenu_Browser_Zoom_Fit_Click(object sender, EventArgs e)
+        {
+            var config = Utility.Configuration.Config.FormBrowser;
+            config.ZoomFit = true;
+
+            fBrowser.ConfigurationChanged();
+
+    
+        }
+
+        private void StripMenu_Browser_Zoom_Click(object sender, EventArgs e)
+        {
+
+            ToolStripMenuItem item = sender as ToolStripMenuItem;
+            if(item != null)
+            {
+                string strZoom = item.Tag as string;
+                if(strZoom != null)
+                {
+                    int zoom;
+                    if (Int32.TryParse(strZoom, out zoom))
+                    {
+                        if(10 <= zoom && zoom <= 1000)
+                        {
+                            var config = Utility.Configuration.Config.FormBrowser;
+                            config.ZoomFit = false;
+                            config.ZoomRate = zoom;
+
+                            fBrowser.ConfigurationChanged();
+
+                        }
+                    }
+                }
+            }
+        }
+
+        private void StripMenu_Browser_Zoom_Decrement_Click(object sender, EventArgs e)
+        {
+            var config = Utility.Configuration.Config.FormBrowser;
+            config.ZoomFit = false;
+            config.ZoomRate = Math.Max(fBrowser.Configuration.ZoomRate - 20, 10);
+
+            fBrowser.ConfigurationChanged();
+        }
+
+        private void StripMenu_Browser_Zoom_Increment_Click(object sender, EventArgs e)
+        {
+            var config = Utility.Configuration.Config.FormBrowser;
+            config.ZoomFit = false;
+            config.ZoomRate = Math.Min(fBrowser.Configuration.ZoomRate +20, 1000);
+
+            fBrowser.ConfigurationChanged();
+        }
+
+        private void StripMenu_Browser_ToolbarAlignment_Dock_Click(object sender, EventArgs e)
+        {
+            var config = Utility.Configuration.Config.FormBrowser;
+
+            if(sender == StripMenu_Browser_ToolbarAlignment_Top)
+            {
+                config.ToolMenuDockStyle = DockStyle.Top;
+            }
+            else if (sender == StripMenu_Browser_ToolbarAlignment_Bottom)
+            {
+                config.ToolMenuDockStyle = DockStyle.Bottom;
+            }
+            else if (sender == StripMenu_Browser_ToolbarAlignment_Left)
+            {
+                config.ToolMenuDockStyle = DockStyle.Left;
+            }
+            else if (sender == StripMenu_Browser_ToolbarAlignment_Right)
+            {
+                config.ToolMenuDockStyle = DockStyle.Right;
+            }
+            config.IsToolMenuVisible = true;
+
+            fBrowser.ConfigurationChanged();
+
+        }
+
+        private void StripMenu_Browser_ToolbarAlignment_Invisible_Click(object sender, EventArgs e)
+        {
+            var config = Utility.Configuration.Config.FormBrowser;
+            config.IsToolMenuVisible = false;
+            fBrowser.ConfigurationChanged();
+
+        }
 
 
+        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        private static extern bool PostMessage(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam);
+        private void StripMenu_Browser_Mute_Click(object sender, EventArgs e)
+        {
+            // ミュートのON/OFF に妥当な方法がわからなかったので、
+            // ショートカットキーを押したことにして代用
 
-	}
+            const int WM_KEYDOWN = 0x100;
+            const int WM_KEYUP = 0x101;
+
+            PostMessage(this.Handle, WM_KEYDOWN, (IntPtr)Keys.F7, (IntPtr)1);
+            PostMessage(this.Handle, WM_KEYUP, (IntPtr)Keys.F7, (IntPtr)1);
+        }
+    }
 }
