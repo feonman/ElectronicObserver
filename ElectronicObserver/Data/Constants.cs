@@ -545,6 +545,11 @@ namespace ElectronicObserver.Data {
 					return "高角砲/機銃/電探";
 				case 17:
 					return "高角砲/機銃";
+<<<<<<< .merge_file_a41732
+=======
+				case 18:
+					return "集中機銃";
+>>>>>>> .merge_file_a41708
 				default:
 					return "不明";
 			}

@@ -99,6 +99,7 @@ namespace ElectronicObserver.Data.Quest {
 
 			CheckProgress( q );
 
+<<<<<<< .merge_file_a41824
 
 			Progress = Math.Min( Progress + 1, ProgressMax );
 
@@ -106,6 +107,28 @@ namespace ElectronicObserver.Data.Quest {
 			//Utility.Logger.Add( 1, string.Format( "Quest++: [{0}] {1} {2}/{3}", QuestID, this.GetType().Name, Progress, ProgressMax ) );
 		}
 
+=======
+			Progress = Math.Min( Progress + 1, ProgressMax );
+		}
+
+		/// <summary>
+		/// 進捗を1減らします。
+		/// </summary>
+		public virtual void Decrement() {
+
+			var q = KCDatabase.Instance.Quest[QuestID];
+
+			if ( q != null && q.State == 3 )		//達成済なら無視
+				return;
+
+
+			Progress = Math.Max( Progress - 1, 0 );
+
+			CheckProgress( q );
+		}
+
+
+>>>>>>> .merge_file_a41684
 		public override string ToString() {
 			return string.Format( "{0}/{1}", Progress, ProgressMax );
 		}

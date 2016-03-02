@@ -306,6 +306,15 @@ namespace ElectronicObserver.Window {
 			} else if ( config.UseSystemProxy ) {
 				return APIObserver.Instance.ProxyPort.ToString();
 
+<<<<<<< .merge_file_a43280
+=======
+			} else if ( config.UseUpstreamProxy ) {
+				return string.Format(
+					"http=127.0.0.1:{0};https={1}:{2}",
+					APIObserver.Instance.ProxyPort,
+					config.UpstreamProxyAddress,
+					config.UpstreamProxyPort );
+>>>>>>> .merge_file_a43344
 			} else {
 				return string.Format( "http=127.0.0.1:{0}", APIObserver.Instance.ProxyPort );
 			}

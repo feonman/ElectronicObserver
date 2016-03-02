@@ -914,7 +914,11 @@ namespace ElectronicObserver.Window {
 		private static int GetWinRankAirRaid( int countFriend, int sunkFriend, double friendrate ) {
 			int rank;
 
+<<<<<<< .merge_file_a43480
 			if ( friendrate == 0.0 )
+=======
+			if ( friendrate <= 0.0 )
+>>>>>>> .merge_file_a43488
 				rank = 7;	//SS
 			else if ( friendrate < 0.1 )
 				rank = 5;	//A

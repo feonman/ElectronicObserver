@@ -139,6 +139,13 @@ namespace ElectronicObserver.Data.Quest {
 			throw new NotSupportedException();
 		}
 
+<<<<<<< .merge_file_a41812
+=======
+		public override void Decrement() {
+			throw new NotSupportedException();
+		}
+
+>>>>>>> .merge_file_a41772
 
 		public override void CheckProgress( QuestData q ) {
 

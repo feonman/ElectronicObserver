@@ -211,6 +211,40 @@ namespace ElectronicObserver.Window.Dialog {
 			}
 		}
 
+<<<<<<< .merge_file_a43812
+=======
+		private void ButtonSearchPrev_Click( object sender, EventArgs e ) {
+
+			int count = APIView.Rows.Count;
+			int index;
+			int result = -1;
+			if ( APIView.SelectedRows.Count > 0 )
+				index = APIView.SelectedRows[0].Index - 1;
+			else
+				index = count - 1;
+
+			if ( index < 0 )
+				index = count - 1;
+
+			for ( int i = index; i >= 0; i-- ) {
+				if ( APIView[APIView_FileName.Index, i].Value.ToString().ToLower().Contains( TextFilter.Text.ToLower() ) ) {
+					result = i;
+					break;
+				}
+			}
+
+			if ( result != -1 ) {
+				APIView.ClearSelection();
+				APIView.Rows[result].Selected = true;
+				APIView.FirstDisplayedScrollingRowIndex = result;
+			} else {
+				System.Media.SystemSounds.Asterisk.Play();
+			}
+		}
+
+
+
+>>>>>>> .merge_file_a43832
 		private void ButtonSearchLastStart2_Click( object sender, EventArgs e ) {
 			for ( int i = APIView.Rows.Count - 1; i >= 0; i-- ) {
 				if ( APIView[APIView_FileName.Index, i].Value.ToString().ToLower().Contains( "s@api_start2." ) ) {
@@ -233,6 +267,11 @@ namespace ElectronicObserver.Window.Dialog {
 			}
 		}
 
+<<<<<<< .merge_file_a43812
+=======
+
+
+>>>>>>> .merge_file_a43832
 		
 
 	}

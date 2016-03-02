@@ -35,7 +35,11 @@ namespace ElectronicObserver.Utility {
 		/// </summary>
 		public static string VersionJapanese {
 			get {
+<<<<<<< .merge_file_a42884
 				return SoftwareNameJapanese + "二一型改五甲";
+=======
+				return SoftwareNameJapanese + "二一型改六";
+>>>>>>> .merge_file_a42860
 			}
 		}
 
@@ -44,7 +48,11 @@ namespace ElectronicObserver.Utility {
 		/// </summary>
 		public static string VersionEnglish {
 			get {
+<<<<<<< .merge_file_a42884
 				return "2.1.5.1";
+=======
+				return "2.1.6";
+>>>>>>> .merge_file_a42860
 			}
 		}
 
@@ -54,7 +62,11 @@ namespace ElectronicObserver.Utility {
 		/// </summary>
 		public static DateTime UpdateTime {
 			get {
+<<<<<<< .merge_file_a42884
 				return DateTimeHelper.CSVStringToTime( "2016/02/20 13:00:00" );
+=======
+				return DateTimeHelper.CSVStringToTime( "2016/02/29 22:00:00" );
+>>>>>>> .merge_file_a42860
 			}
 		}
 
