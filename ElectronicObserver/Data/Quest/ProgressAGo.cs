@@ -139,6 +139,9 @@ namespace ElectronicObserver.Data.Quest {
 			throw new NotSupportedException();
 		}
 
+		public override void Decrement() {
+			throw new NotSupportedException();
+		}
 
 		public override void CheckProgress( QuestData q ) {
 

@@ -690,7 +690,7 @@
     </EmbeddedResource>
     <None Include="app.manifest" />
     <None Include="Assets.zip">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

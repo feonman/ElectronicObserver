@@ -28,11 +28,9 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.QuestView = new System.Windows.Forms.DataGridView();
-            this.QuestView_State = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.QuestView_Type = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.QuestView_Category = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.QuestView_Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.QuestView_Progress = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MenuProgress = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.MenuProgress_Increment = new System.Windows.Forms.ToolStripMenuItem();
+            this.MenuProgress_Decrement = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuMain = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.MenuMain_ShowRunningOnly = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
@@ -50,7 +48,13 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.MenuMain_Initialize = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolTipInfo = new System.Windows.Forms.ToolTip(this.components);
+            this.QuestView_State = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.QuestView_Type = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.QuestView_Category = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.QuestView_Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.QuestView_Progress = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.QuestView)).BeginInit();
+            this.MenuProgress.SuspendLayout();
             this.MenuMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -59,7 +63,7 @@
             this.QuestView.AllowUserToAddRows = false;
             this.QuestView.AllowUserToDeleteRows = false;
             this.QuestView.AllowUserToResizeRows = false;
-            this.QuestView.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
+            this.QuestView.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.QuestView.BackgroundColor = System.Drawing.SystemColors.Control;
             this.QuestView.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.QuestView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -84,60 +88,38 @@
             this.QuestView.Name = "QuestView";
             this.QuestView.ReadOnly = true;
             this.QuestView.RowHeadersVisible = false;
+            this.QuestView.RowTemplate.Height = 21;
             this.QuestView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.QuestView.Size = new System.Drawing.Size(300, 200);
             this.QuestView.TabIndex = 0;
             this.QuestView.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.QuestView_CellFormatting);
+            this.QuestView.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.QuestView_CellMouseDown);
             this.QuestView.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.QuestView_CellPainting);
             this.QuestView.ColumnWidthChanged += new System.Windows.Forms.DataGridViewColumnEventHandler(this.QuestView_ColumnWidthChanged);
             this.QuestView.SortCompare += new System.Windows.Forms.DataGridViewSortCompareEventHandler(this.QuestView_SortCompare);
             this.QuestView.Sorted += new System.EventHandler(this.QuestView_Sorted);
             // 
-            // QuestView_State
+            // MenuProgress
             // 
-            this.QuestView_State.FalseValue = "";
-            this.QuestView_State.HeaderText = "";
-            this.QuestView_State.IndeterminateValue = "";
-            this.QuestView_State.Name = "QuestView_State";
-            this.QuestView_State.ReadOnly = true;
-            this.QuestView_State.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.QuestView_State.ThreeState = true;
-            this.QuestView_State.TrueValue = "";
-            this.QuestView_State.Width = 24;
+            this.MenuProgress.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.MenuProgress_Increment,
+            this.MenuProgress_Decrement});
+            this.MenuProgress.Name = "MenuProgress";
+            this.MenuProgress.Size = new System.Drawing.Size(137, 48);
             // 
-            // QuestView_Type
+            // MenuProgress_Increment
             // 
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.QuestView_Type.DefaultCellStyle = dataGridViewCellStyle1;
-            this.QuestView_Type.HeaderText = "種";
-            this.QuestView_Type.Name = "QuestView_Type";
-            this.QuestView_Type.ReadOnly = true;
-            this.QuestView_Type.Width = 20;
+            this.MenuProgress_Increment.Name = "MenuProgress_Increment";
+            this.MenuProgress_Increment.Size = new System.Drawing.Size(136, 22);
+            this.MenuProgress_Increment.Text = "進捗 +1(&I)";
+            this.MenuProgress_Increment.Click += new System.EventHandler(this.MenuProgress_Increment_Click);
             // 
-            // QuestView_Category
+            // MenuProgress_Decrement
             // 
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.QuestView_Category.DefaultCellStyle = dataGridViewCellStyle2;
-            this.QuestView_Category.HeaderText = "分類";
-            this.QuestView_Category.Name = "QuestView_Category";
-            this.QuestView_Category.ReadOnly = true;
-            this.QuestView_Category.Width = 40;
-            // 
-            // QuestView_Name
-            // 
-            this.QuestView_Name.FillWeight = 200F;
-            this.QuestView_Name.HeaderText = "任務名";
-            this.QuestView_Name.Name = "QuestView_Name";
-            this.QuestView_Name.ReadOnly = true;
-            this.QuestView_Name.Width = 143;
-            // 
-            // QuestView_Progress
-            // 
-            this.QuestView_Progress.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.QuestView_Progress.HeaderText = "進捗";
-            this.QuestView_Progress.Name = "QuestView_Progress";
-            this.QuestView_Progress.ReadOnly = true;
-            this.QuestView_Progress.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.MenuProgress_Decrement.Name = "MenuProgress_Decrement";
+            this.MenuProgress_Decrement.Size = new System.Drawing.Size(136, 22);
+            this.MenuProgress_Decrement.Text = "進捗 -1(&D)";
+            this.MenuProgress_Decrement.Click += new System.EventHandler(this.MenuProgress_Decrement_Click);
             // 
             // MenuMain
             // 
@@ -276,6 +258,57 @@
             this.ToolTipInfo.ReshowDelay = 100;
             this.ToolTipInfo.ShowAlways = true;
             // 
+            // QuestView_State
+            // 
+            this.QuestView_State.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.QuestView_State.FalseValue = "";
+            this.QuestView_State.HeaderText = "";
+            this.QuestView_State.IndeterminateValue = "";
+            this.QuestView_State.Name = "QuestView_State";
+            this.QuestView_State.ReadOnly = true;
+            this.QuestView_State.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.QuestView_State.ThreeState = true;
+            this.QuestView_State.TrueValue = "";
+            this.QuestView_State.Width = 19;
+            // 
+            // QuestView_Type
+            // 
+            this.QuestView_Type.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.QuestView_Type.DefaultCellStyle = dataGridViewCellStyle1;
+            this.QuestView_Type.HeaderText = "種";
+            this.QuestView_Type.Name = "QuestView_Type";
+            this.QuestView_Type.ReadOnly = true;
+            this.QuestView_Type.Width = 44;
+            // 
+            // QuestView_Category
+            // 
+            this.QuestView_Category.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.QuestView_Category.DefaultCellStyle = dataGridViewCellStyle2;
+            this.QuestView_Category.HeaderText = "分類";
+            this.QuestView_Category.Name = "QuestView_Category";
+            this.QuestView_Category.ReadOnly = true;
+            this.QuestView_Category.Width = 56;
+            // 
+            // QuestView_Name
+            // 
+            this.QuestView_Name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.QuestView_Name.FillWeight = 200F;
+            this.QuestView_Name.HeaderText = "任務名";
+            this.QuestView_Name.Name = "QuestView_Name";
+            this.QuestView_Name.ReadOnly = true;
+            this.QuestView_Name.Width = 68;
+            // 
+            // QuestView_Progress
+            // 
+            this.QuestView_Progress.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.QuestView_Progress.ContextMenuStrip = this.MenuProgress;
+            this.QuestView_Progress.HeaderText = "進捗";
+            this.QuestView_Progress.Name = "QuestView_Progress";
+            this.QuestView_Progress.ReadOnly = true;
+            this.QuestView_Progress.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
             // FormQuest
             // 
             this.AutoHidePortion = 150D;
@@ -290,6 +323,7 @@
             this.Text = "任務";
             this.Load += new System.EventHandler(this.FormQuest_Load);
             ((System.ComponentModel.ISupportInitialize)(this.QuestView)).EndInit();
+            this.MenuProgress.ResumeLayout(false);
             this.MenuMain.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -315,10 +349,13 @@
 		private System.Windows.Forms.ToolStripMenuItem MenuMain_ColumnFilter_Category;
 		private System.Windows.Forms.ToolStripMenuItem MenuMain_ColumnFilter_Name;
 		private System.Windows.Forms.ToolStripMenuItem MenuMain_ColumnFilter_Progress;
-		private System.Windows.Forms.DataGridViewCheckBoxColumn QuestView_State;
-		private System.Windows.Forms.DataGridViewTextBoxColumn QuestView_Type;
-		private System.Windows.Forms.DataGridViewTextBoxColumn QuestView_Category;
-		private System.Windows.Forms.DataGridViewTextBoxColumn QuestView_Name;
-		private System.Windows.Forms.DataGridViewTextBoxColumn QuestView_Progress;
-	}
+		private System.Windows.Forms.ContextMenuStrip MenuProgress;
+		private System.Windows.Forms.ToolStripMenuItem MenuProgress_Increment;
+		private System.Windows.Forms.ToolStripMenuItem MenuProgress_Decrement;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn QuestView_State;
+        private System.Windows.Forms.DataGridViewTextBoxColumn QuestView_Type;
+        private System.Windows.Forms.DataGridViewTextBoxColumn QuestView_Category;
+        private System.Windows.Forms.DataGridViewTextBoxColumn QuestView_Name;
+        private System.Windows.Forms.DataGridViewTextBoxColumn QuestView_Progress;
+    }
 }
