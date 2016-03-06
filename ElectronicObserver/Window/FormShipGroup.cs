@@ -1584,7 +1584,7 @@ namespace ElectronicObserver.Window {
 		}
 
 
-		private void FormShipGroup_Resize( object sender, EventArgs e ) {
+		private void FormShipGroup_Layout( object sender, EventArgs e ) {
 			if ( _splitterDistance != -1 && splitContainer1.Height > 0 ) {
 				try {
 					splitContainer1.SplitterDistance = _splitterDistance;

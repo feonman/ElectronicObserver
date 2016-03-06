@@ -457,12 +457,17 @@ namespace ElectronicObserver.Window {
 					fWindowCapture.CloseAll();
 
 					foreach ( var f in SubForms ) {
+                        f.SuspendLayout();
 						f.Show( MainDockPanel, DockState.Document );
 						f.DockPanel = null;
 					}
 
 					MainDockPanel.LoadFromXml( stream, new DeserializeDockContent( GetDockContentFromPersistString ) );
 
+                    foreach( var f in SubForms)
+                    {
+                        f.ResumeLayout(false);
+                    }
 
 					fWindowCapture.AttachAll();
 
